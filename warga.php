@@ -71,7 +71,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="konfigurasi/pengolahan.php" method="post">
+                <form action="konfigurasi/pengelolaan.php" method="post">
                     <div class="mb-3">
                         <label for="" class="form-label">Nomor Induk Kependudukan (NIK)</label>
                         <input type="text" class="form-control form-control-sm" id="" placeholder="" name="nik" required maxlength="16" autocomplete="off">
