@@ -1,7 +1,11 @@
 <?php
     session_start();
+    include 'konfigurasi/koneksi.php';
     $title = 'Daftar Warga';
     include 'template/header.php';
+
+    $sql = "SELECT `nik`, `nama`, `ttl`, `kelamin`, `pekerjaan` FROM `biodata` ORDER BY `nik` ASC";
+    $kueri = mysqli_query($mysqli, $sql);
 ?>
 
 <div class="p-3 pb-md-4 mx-auto text-center" style="max-width: 700px;">
@@ -9,7 +13,7 @@
     <p class="fs-5 text-muted">Aplikasi sederhana untuk mengelola biodata warga yang menerapkan CRUD menggunakan PHP Native.</p>
 </div>
 
-<div class="container">
+<div class="container mb-5">
     <div class="row">
         <div class="col-md">
             <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#tambah">
@@ -27,16 +31,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php $nomor = 1; while($data = mysqli_fetch_assoc($kueri)): ?>
                         <tr>
-                            <td>1</td>
-                            <td>Hud Sam</td>
-                            <td>Laki-laki</td>
-                            <td>Fresh Graduate</td>
+                            <td><?php echo $nomor++; ?></td>
+                            <td><?php echo $data['nama']; ?></td>
+                            <td><?php echo ($data['kelamin'] === 'L') ? 'Laki-laki' : 'Perempuan'; ?></td>
+                            <td><?php echo $data['pekerjaan']; ?></td>
                             <td class="text-center">
-                                <a href="ubah.php" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil-square"></i> Ubah</a>
-                                <a href="hapus.php" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> Hapus</a>
+                                <a href="ubah.php?nik=<?php echo $data['nik']; ?>" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil-square"></i> Ubah
+                                </a>
+                                <a href="hapus.php?nik=<?php echo $data['nik']; ?>" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i> Hapus
+                                </a>
                             </td>
                         </tr>
+                    <?php endwhile; $mysqli->close(); ?>
                     </tbody>
                     <tfoot>
                         <tr>
