@@ -33,6 +33,12 @@
             }
         });
         <?php endif; unset($_SESSION['instalasi']); ?>
+
+        <?php
+            if ($_SESSION['simpan']) { echo $_SESSION['simpan']; } unset($_SESSION['simpan']);
+            if ($_SESSION['ubah']) { echo $_SESSION['ubah']; } unset($_SESSION['ubah']);
+            if ($_SESSION['hapus']) { echo $_SESSION['hapus']; } unset($_SESSION['hapus']);
+        ?>
     });
 </script>
 </html>
