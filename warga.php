@@ -104,7 +104,7 @@
                         <input type="text" class="form-control form-control-sm" id="" placeholder="" name="pekerjaan" required autocomplete="off">
                     </div>
                     <div class="mb-3">
-                        <button type="submit" name="submit" value="simpan" class="btn btn-sm btn-primary"><i class="bi bi-save"></i> Simpan</button>
+                        <button type="submit" name="submit" value="tambah" class="btn btn-sm btn-primary"><i class="bi bi-save"></i> Simpan</button>
                     </div>
                 </form>
             </div>

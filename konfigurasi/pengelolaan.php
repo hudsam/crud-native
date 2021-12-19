@@ -5,7 +5,7 @@ include 'koneksi.php';
 
 if (isset($_POST['submit']))
 {
-    if ($_POST['submit'] === 'simpan')
+    if ($_POST['submit'] === 'tambah')
     {
         $nik = $_POST['nik'];
         $nama = $_POST['nama'];
@@ -70,8 +70,41 @@ if (isset($_POST['submit']))
         $mysqli->close();
         header('Location: ../ubah.php?nik=' . $nik);
     }
+    elseif ($_POST['submit'] === 'hapus')
+    {
+    	$nik = $_POST['nik'];
+
+    	$pesan = mysqli_connect_error();
+
+    	$sql = "SELECT `nik` FROM `biodata` WHERE `nik` = '$nik'";
+    	$kueri = mysqli_query($mysqli, $sql);
+
+    	if (mysqli_num_rows($kueri) === 1)
+    	{
+    		$sql = "DELETE FROM `biodata` WHERE `nik` = '$nik'";
+    		$kueri = mysqli_query($mysqli, $sql);
+
+    		if ($kueri)
+    		{
+    			$_SESSION['hapus'] = "Swal.fire({'icon': 'success', 'title': 'Berhasil !', 'text': 'Data dengan NIK $nik sudah dihapus.'});";
+    		}
+    		else
+    		{
+    			$_SESSION['hapus'] = "Swal.fire({'icon': 'error', 'title': 'Gagal !', 'text': 'Penyebab: $pesan.'});";
+    		}
+
+    		header('Location: ../warga.php');
+    	}
+    	else
+    	{
+    		header('Location: ../warga.php');
+    	}
+
+    	$mysqli->close();
+    }
     else
     {
+    	header('Location: ../warga.php');
     }
 }
 else

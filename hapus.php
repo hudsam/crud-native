@@ -1,4 +1,33 @@
 <?php
+    session_start();
+    include 'konfigurasi/koneksi.php';
+    $nik = $_GET['nik'];
+
+    if (!isset($nik))
+    {
+        header('Location: warga.php');
+    }
+    else
+    {
+        $sql = "SELECT `nik`, `nama` FROM `biodata` WHERE `nik` = '$nik'";
+        $kueri = mysqli_query($mysqli, $sql);
+
+        if (mysqli_num_rows($kueri) === 1)
+        {
+            while($data = mysqli_fetch_assoc($kueri))
+            {
+                $nik = $data['nik'];
+                $nama = $data['nama'];
+            }
+        }
+        else
+        {
+            header('Location: warga.php');
+        }
+
+        $mysqli->close();
+    }
+
     $title = 'Hapus Biodata';
     include 'template/header.php';
 ?>
@@ -10,12 +39,13 @@
             <div class="card mt-3 mb-5">
                 <h5 class="card-header"><?php echo $title; ?></h5>
                 <div class="card-body">
-                    <form action="hapus.php" method="post">
+                    <form action="konfigurasi/pengelolaan.php" method="post">
                         <p class="card-text mb-3">
-                            Apakah Anda yakin ingin menghapus biodata a.n. XYZ dengan NIK 123 ?
+                            <input type="hidden" name="nik" value="<?php echo $nik; ?>">
+                            Apakah Anda yakin ingin menghapus biodata a.n. <strong><?php echo $nama; ?></strong> dengan NIK <strong><?php echo $nik; ?></strong> ?
                         </p>
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                            <button type="submit" name="submit" value="hapus" class="btn btn-sm btn-outline-danger">
                                 <i class="bi bi-check"></i> Iya, saya yakin.
                             </button>
                         </div>
