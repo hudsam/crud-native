@@ -74,7 +74,7 @@
                 <form action="konfigurasi/pengelolaan.php" method="post">
                     <div class="mb-3">
                         <label for="" class="form-label">Nomor Induk Kependudukan (NIK)</label>
-                        <input type="text" class="form-control form-control-sm" id="" placeholder="" name="nik" required maxlength="16" autocomplete="off">
+                        <input type="number" min="0" class="form-control form-control-sm" id="" placeholder="" name="nik" required maxlength="16" autocomplete="off">
                         <small class="form-text text-danger">NIK harus mengandung angka.</small>
                     </div>
                     <div class="mb-3">
