@@ -2,16 +2,14 @@
     error_reporting(0);
     $title = 'Instalasi Aplikasi';
     include '../template/header.php';
+    include 'env-variables.php';
 
     if (file_exists('.crud-native_installed'))
     {
         header('Location: ../index.php');
     }
 
-    $ALAMAT = getenv('ALAMAT');
-    $PENGGUNA = getenv('PENGGUNA');
-    $KATASANDI = getenv('KATASANDI');
-    $DATABASE = getenv('DATABASE');
+    $koneksi = mysqli_connect($ALAMAT, $PENGGUNA, $KATASANDI);
 ?>
 
 <div class="container">
@@ -44,9 +42,8 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <font>Layanan MySQL <i class="bi bi-info-circle-fill text-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="Optimal: Tersambung"></i></font>
                                 <?php
-                                $mysqli = mysqli_connect($ALAMAT, $PENGGUNA, $KATASANDI);
-                                echo (!$mysqli)
-                                    ? '<span class="badge bg-danger rounded-pill" data-bs-toggle="tooltip" data-bs-placement="right" title="Alasan: '. mysqli_error($mysqli) .'"><i class="bi bi-x-circle"></i> Gagal</span>'
+                                echo (!$koneksi)
+                                    ? '<span class="badge bg-danger rounded-pill" data-bs-toggle="tooltip" data-bs-placement="right" title="Alasan: '. mysqli_connect_error() .'"><i class="bi bi-x-circle"></i> Gagal</span>'
                                     : '<span class="badge bg-success rounded-pill"><i class="bi bi-check"></i> Tersambung</span>';
                                 ?>
                             </li>
@@ -77,10 +74,10 @@ if (isset($_POST['submit']))
     if ($_POST['submit'] === 'pasang')
     {
         $kueri = 'CREATE DATABASE IF NOT EXISTS ' . $DATABASE;
-        $buatDatabase = mysqli_query($mysqli, $kueri);
+        $buatDatabase = mysqli_query($koneksi, $kueri);
 
         $kueri = 'USE ' . $DATABASE;
-        $pilihDatabase = mysqli_query($mysqli, $kueri);
+        $pilihDatabase = mysqli_query($koneksi, $kueri);
 
         $kueri = "CREATE TABLE `biodata` (
             `nik` INT(20) NOT NULL,
@@ -91,10 +88,10 @@ if (isset($_POST['submit']))
             PRIMARY KEY (`nik`)
         )
         COLLATE='latin1_swedish_ci';";
-        $buatTabel = mysqli_query($mysqli, $kueri);
+        $buatTabel = mysqli_query($koneksi, $kueri);
 
         $kueri = 'SHOW TABLES FROM ' . $DATABASE;
-        $cekTabel = mysqli_query($mysqli, $kueri);
+        $cekTabel = mysqli_query($koneksi, $kueri);
         while ($tables = mysqli_fetch_assoc($cekTabel))
         {
             $tabelBiodata = ($tables['Tables_in_' . $DATABASE] === 'biodata') ? true : false;
@@ -104,7 +101,7 @@ if (isset($_POST['submit']))
             ? fopen('.crud-native_installed', 'w', '.')
             : 'Tabel biodata tidak ditemukan.';
 
-        mysqli_close($mysqli);
+        mysqli_close($koneksi);
         $_SESSION['instalasi'] = true;
     }
 }
