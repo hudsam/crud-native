@@ -1,4 +1,5 @@
 <?php
+    session_start();
     $title = 'Daftar Warga';
     include 'template/header.php';
 ?>
@@ -60,40 +61,40 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="warga.php" method="post">
+                <form action="konfigurasi/pengolahan.php" method="post">
                     <div class="mb-3">
                         <label for="" class="form-label">Nomor Induk Kependudukan (NIK)</label>
-                        <input type="text" class="form-control form-control-sm" id="" placeholder="" name="" required maxlength="16">
+                        <input type="text" class="form-control form-control-sm" id="" placeholder="" name="nik" required maxlength="16" autocomplete="off">
                         <small class="form-text text-danger">NIK harus mengandung angka.</small>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control form-control-sm" id="" placeholder="" name="" required>
+                        <input type="text" class="form-control form-control-sm" id="" placeholder="" name="nama" required autocomplete="off">
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Tempat dan Tanggal Lahir</label>
                         <div class="input-group">
-                            <input type="text" class="form-control form-control-sm" id="" placeholder="" name="" required>
-                            <input type="date" class="form-control form-control-sm" id="" placeholder="" name="" required>
+                            <input type="text" class="form-control form-control-sm" id="" placeholder="" name="tempat" required autocomplete="off">
+                            <input type="date" class="form-control form-control-sm" id="" placeholder="" name="tanggal" required autocomplete="off">
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Jenis Kelamin</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" id="kelamin-l" name="kelamin" required checked>
+                            <input class="form-check-input" type="radio" id="kelamin-l" name="kelamin" value="L" required checked>
                             <label class="form-check-label" for="kelamin-l">Laki-laki</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" id="kelamin-p" name="kelamin">
+                            <input class="form-check-input" type="radio" id="kelamin-p" name="kelamin" value="P">
                             <label class="form-check-label" for="kelamin-p">Perempuan</label>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Pekerjaan</label>
-                        <input type="text" class="form-control form-control-sm" id="" placeholder="" name="" required>
+                        <input type="text" class="form-control form-control-sm" id="" placeholder="" name="pekerjaan" required autocomplete="off">
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn btn-sm btn-primary"><i class="bi bi-save"></i> Simpan</button>
+                        <button type="submit" name="submit" value="simpan" class="btn btn-sm btn-primary"><i class="bi bi-save"></i> Simpan</button>
                     </div>
                 </form>
             </div>
