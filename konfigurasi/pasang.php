@@ -1,5 +1,6 @@
 <?php
     error_reporting(0);
+    session_start();
     $title = 'Instalasi Aplikasi';
     include '../template/header.php';
     include 'env-variables.php';
@@ -80,7 +81,7 @@ if (isset($_POST['submit']))
         $pilihDatabase = mysqli_query($koneksi, $kueri);
 
         $kueri = "CREATE TABLE `biodata` (
-            `nik` INT(20) NOT NULL,
+            `nik` VARCHAR(20) NOT NULL,
             `nama` VARCHAR(50) NOT NULL,
             `ttl` JSON NULL DEFAULT NULL,
             `kelamin` ENUM('L','P') NULL DEFAULT NULL COMMENT 'tempat dan tanggal lahir',
